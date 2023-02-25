@@ -1,5 +1,5 @@
 import { RootState } from './../index';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface timeState {
   hours: number;
@@ -18,7 +18,18 @@ const initialState: timeState = {
 export const timeSlice = createSlice({
   name: 'time',
   initialState,
-  reducers: {},
+  reducers: {
+    setTime: (
+      state,
+      action: PayloadAction<{
+        hours: number;
+        minutes: number;
+        seconds: number;
+      }>,
+    ) => {
+      state = action.payload;
+    },
+  },
 });
 
 export const {} = timeSlice.actions;

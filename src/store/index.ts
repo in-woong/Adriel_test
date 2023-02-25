@@ -2,7 +2,7 @@ import { timeSlice } from './time/timeSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { time: timeSlice.reducer },
   devTools: process.env.NODE_ENV !== 'production',
 });
 
