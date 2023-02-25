@@ -1,8 +1,13 @@
 import React, { useRef } from 'react';
-import { useAppSelector } from 'hooks';
+import { useAppSelector } from 'utils/hooks';
 import { getHours, getMinutes, getSeconds } from 'store/time/timeSlice';
 import styled from 'styled-components';
-import { hoursToDegrees, minutesToDegrees, secondsToDegrees } from 'utils';
+import {
+  hoursToDegrees,
+  minutesToDegrees,
+  secondsToDegrees,
+} from 'utils/utils';
+import { TimeHand } from './TimeHand';
 
 const Wrapper = styled.div`
   width: 30rem;
@@ -21,39 +26,9 @@ const ClockFace = styled.div`
   height: 100%;
   transform: translateY(-3px);
 `;
-const HourHand = styled.div`
-  width: 50%;
-  height: 6px;
-  background: green;
-  position: absolute;
-  top: 50%;
-  transform-origin: 100%;
-  transform: rotate(90deg);
-  transition: all 0.05s;
-  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-`;
-const MinHand = styled.div`
-  width: 50%;
-  height: 6px;
-  background: blue;
-  position: absolute;
-  top: 50%;
-  transform-origin: 100%;
-  transform: rotate(90deg);
-  transition: all 0.05s;
-  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-`;
-const SecondHand = styled.div`
-  width: 50%;
-  height: 6px;
-  background: red;
-  position: absolute;
-  top: 50%;
-  transform-origin: 100%;
-  transform: rotate(90deg);
-  transition: all 0.05s;
-  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-`;
+const HourHand = styled(TimeHand)``;
+const MinHand = styled(TimeHand)``;
+const SecondHand = styled(TimeHand)``;
 
 export default function Clock() {
   const hours = useAppSelector(getHours);
