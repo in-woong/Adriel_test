@@ -54,9 +54,9 @@ export default function Clock() {
   return (
     <Wrapper>
       <ClockFace>
-        <HourHand style={hourStyle} ref={hoursHand}></HourHand>
-        <MinHand style={minuteStyle} ref={minutesHand}></MinHand>
-        <SecondHand style={secondStyle} ref={secondsHand}></SecondHand>
+        <HourHand style={hourStyle} ref={hoursHand} />
+        <MinHand style={minuteStyle} ref={minutesHand} />
+        <SecondHand style={secondStyle} ref={secondsHand} />
       </ClockFace>
     </Wrapper>
   );
