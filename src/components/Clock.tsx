@@ -1,14 +1,9 @@
-import React, { useRef, useState, MouseEvent } from 'react';
-import { useAppSelector } from 'utils/hooks';
-import { getHours, getMinutes, getSeconds } from 'store/time/timeSlice';
+import React, { useState, MouseEvent } from 'react';
 import styled from 'styled-components';
-import {
-  hoursToDegrees,
-  minutesToDegrees,
-  secondsToDegrees,
-} from 'utils/utils';
-import { TimeHand } from './TimeHand';
 import Tooltip from './Tooltip';
+import SecondHand from './SecondHand';
+import MinuteHand from './MinuteHand';
+import HourHand from './HourHand';
 
 export interface IPosition {
   x: number;
@@ -32,33 +27,10 @@ const ClockFace = styled.div`
   height: 100%;
   transform: translateY(-3px);
 `;
-const HourHand = styled(TimeHand)``;
-const MinHand = styled(TimeHand)``;
-const SecondHand = styled(TimeHand)``;
 
 export default function Clock() {
   const [isTooltip, setIsTooltip] = useState(false);
   const [position, setPosition] = useState<IPosition>({ x: 0, y: 0 });
-
-  const hours = useAppSelector(getHours);
-  const minutes = useAppSelector(getMinutes);
-  const seconds = useAppSelector(getSeconds);
-
-  const hoursHand = useRef<HTMLDivElement>(null);
-  const minutesHand = useRef<HTMLDivElement>(null);
-  const secondsHand = useRef<HTMLDivElement>(null);
-
-  const hourStyle = {
-    transform: `rotate(${hoursToDegrees(hours)}deg)`,
-  };
-
-  const minuteStyle = {
-    transform: `rotate(${minutesToDegrees(minutes)}deg)`,
-  };
-
-  const secondStyle = {
-    transform: `rotate(${secondsToDegrees(seconds)}deg)`,
-  };
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isTooltip) setIsTooltip(true);
@@ -75,9 +47,9 @@ export default function Clock() {
   return (
     <Wrapper onMouseMove={handleMouseMove}>
       <ClockFace onMouseOut={handleMousOut}>
-        <HourHand style={hourStyle} ref={hoursHand} />
-        <MinHand style={minuteStyle} ref={minutesHand} />
-        <SecondHand style={secondStyle} ref={secondsHand} />
+        <HourHand />
+        <MinuteHand />
+        <SecondHand />
         {isTooltip && <Tooltip position={position} />}
       </ClockFace>
     </Wrapper>
