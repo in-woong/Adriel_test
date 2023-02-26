@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'utils/hooks';
 import { getHours, getMinutes, getSeconds } from 'store/time/timeSlice';
 import styled from 'styled-components';
@@ -30,6 +30,33 @@ const HourHand = styled(TimeHand)``;
 const MinHand = styled(TimeHand)``;
 const SecondHand = styled(TimeHand)``;
 
+const TooltipText = styled.span`
+  &::after {
+    content: '';
+    position: absolute;
+    color: green;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+  /* visibility: hidden; */
+  width: 110px;
+  height: 20px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5;
+  z-index: 55;
+  position: absolute;
+  left: 50%;
+  bottom: 77%;
+  margin-left: -60px;
+`;
+
 export default function Clock() {
   const hours = useAppSelector(getHours);
   const minutes = useAppSelector(getMinutes);
@@ -50,13 +77,32 @@ export default function Clock() {
   const secondStyle = {
     transform: `rotate(${secondsToDegrees(seconds)}deg)`,
   };
+  const [isTooltip, setIsTooltip] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const handleMouseMove = (e: any) => {
+    if (!isTooltip) setIsTooltip(true);
+    setPosition({
+      x: e.pageX - window.innerWidth / 2 + 170,
+      y: e.pageY - window.innerHeight / 2 + 120,
+    });
+  };
+
+  const handleMousOut = () => {
+    setIsTooltip(false);
+  };
 
   return (
-    <Wrapper>
-      <ClockFace>
+    <Wrapper onMouseMove={handleMouseMove}>
+      <ClockFace onMouseOut={handleMousOut}>
         <HourHand style={hourStyle} ref={hoursHand} />
         <MinHand style={minuteStyle} ref={minutesHand} />
         <SecondHand style={secondStyle} ref={secondsHand} />
+
+        {isTooltip && (
+          <TooltipText
+            style={{ left: `${position.x}px`, top: `${position.y}px` }}
+          >{`ID: ${position.x}`}</TooltipText>
+        )}
       </ClockFace>
     </Wrapper>
   );
