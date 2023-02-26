@@ -1,5 +1,8 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import styled from 'styled-components';
+import { useAppDispatch } from 'utils/hooks';
+import { setTime } from 'store/time/timeSlice';
+
 import Tooltip from './Tooltip';
 import SecondHand from './SecondHand';
 import MinuteHand from './MinuteHand';
@@ -31,6 +34,21 @@ const ClockFace = styled.div`
 export default function Clock() {
   const [isTooltip, setIsTooltip] = useState(false);
   const [position, setPosition] = useState<IPosition>({ x: 0, y: 0 });
+
+  const dispatch = useAppDispatch();
+
+  const setNowTime = () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    dispatch(setTime({ hours, minutes, seconds }));
+  };
+
+  useEffect(() => {
+    setInterval(setNowTime, 1000);
+  }, []);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isTooltip) setIsTooltip(true);

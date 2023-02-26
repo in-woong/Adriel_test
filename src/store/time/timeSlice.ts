@@ -1,7 +1,7 @@
-import { RootState } from './../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../index';
 
-interface timeState {
+interface TimeState {
   hours: number;
   minutes: number;
   seconds: number;
@@ -9,7 +9,7 @@ interface timeState {
 
 const now = new Date();
 
-const initialState: timeState = {
+const initialState: TimeState = {
   hours: now.getHours(),
   minutes: now.getMinutes(),
   seconds: now.getSeconds(),
@@ -27,12 +27,12 @@ export const timeSlice = createSlice({
         seconds: number;
       }>,
     ) => {
-      state = action.payload;
+      return action.payload;
     },
   },
 });
 
-export const {} = timeSlice.actions;
+export const { setTime } = timeSlice.actions;
 
 export const getHours = (state: RootState) => state.time.hours;
 export const getMinutes = (state: RootState) => state.time.minutes;
