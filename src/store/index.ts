@@ -1,5 +1,5 @@
-import { timeSlice } from './time/timeSlice';
 import { configureStore } from '@reduxjs/toolkit';
+import { timeSlice } from './time/timeSlice';
 
 export const store = configureStore({
   reducer: { time: timeSlice.reducer },
