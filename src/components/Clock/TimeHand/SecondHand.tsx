@@ -7,7 +7,7 @@ import { TimeHand } from './TimeHand';
 
 const Hand = styled(TimeHand)``;
 
-export default function SecondHand() {
+function SecondHand() {
   const seconds = useAppSelector(getSeconds);
   const secondStyle = {
     transform: `rotate(${secondsToDegrees(seconds)}deg)`,
@@ -15,3 +15,5 @@ export default function SecondHand() {
 
   return <Hand style={secondStyle} />;
 }
+
+export default React.memo(SecondHand);
