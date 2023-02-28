@@ -5,10 +5,6 @@ import { useAppSelector } from 'utils/hooks';
 import { hoursToDegrees } from 'utils/utils';
 import { TimeHand } from './TimeHand';
 
-interface HourHandProps {
-  hours: number;
-}
-
 const Hand = styled(TimeHand)`
   background-color: black;
   width: 30%;
