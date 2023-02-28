@@ -1,10 +1,17 @@
 import React from 'react';
-import { getHours, getMinutes, getSeconds } from 'store/time/timeSlice';
+import { getTimes } from 'store/time/timeSlice';
 import styled from 'styled-components';
 import { useAppSelector } from 'utils/hooks';
 import { IPosition } from './Clock';
 
-const TooltipText = styled.span`
+interface TooltipProps {
+  position: IPosition;
+}
+
+const TooltipText = styled.span<{
+  left: string;
+  top: string;
+}>`
   &::after {
     content: '';
     position: absolute;
@@ -16,9 +23,11 @@ const TooltipText = styled.span`
     border-style: solid;
     border-color: black transparent transparent transparent;
   }
-  /* visibility: hidden; */
   width: 110px;
   height: 20px;
+  left: 50%;
+  left: ${(props) => props.left};
+  top: ${(props) => props.top};
   background-color: black;
   color: #fff;
   text-align: center;
@@ -26,23 +35,19 @@ const TooltipText = styled.span`
   padding: 5px 5;
   z-index: 55;
   position: absolute;
-  left: 50%;
   bottom: 77%;
   margin-left: -60px;
 `;
-interface TooltipProps {
-  position: IPosition;
-}
-export default function Tooltip({ position }: TooltipProps) {
-  const hours = useAppSelector(getHours);
-  const minutes = useAppSelector(getMinutes);
-  const seconds = useAppSelector(getSeconds);
 
+function Tooltip({ position }: TooltipProps) {
   const { x, y } = position;
+  const timeString = useAppSelector(getTimes);
 
   return (
-    <TooltipText
-      style={{ left: `${x}px`, top: `${y}px` }}
-    >{`${hours}:${minutes}:${seconds}`}</TooltipText>
+    <TooltipText left={`${x}px`} top={`${y}px`}>
+      {timeString}
+    </TooltipText>
   );
 }
+
+export default React.memo(Tooltip);
