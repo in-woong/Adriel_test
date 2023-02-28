@@ -15,7 +15,6 @@ const TooltipText = styled.span<{
   &::after {
     content: '';
     position: absolute;
-    color: green;
     top: 100%;
     left: 50%;
     margin-left: -5px;
@@ -28,8 +27,8 @@ const TooltipText = styled.span<{
   left: 50%;
   left: ${(props) => props.left};
   top: ${(props) => props.top};
-  background-color: black;
-  color: #fff;
+  background-color: rgba(99, 110, 114, 0.8);
+  color: rgba(223, 230, 233, 0.8);
   text-align: center;
   border-radius: 6px;
   padding: 5px 5;

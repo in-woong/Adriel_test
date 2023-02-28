@@ -7,11 +7,22 @@ const GlobalStyle = createGlobalStyle`
   }
   
   html {
-      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+    
+      background: #018DED url(https://images.unsplash.com/photo-1501139083538-0139583c060f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
       background-size: cover;
       font-family: 'helvetica neue';
       text-align: center;
       font-size: 10px;
+    }
+    html::before{
+        content: "";
+        opacity: 0.3;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #fff;
     }
 
     body {
